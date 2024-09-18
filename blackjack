@@ -1,0 +1,97 @@
+import random
+
+
+# Function to calculate the value of the hand
+def calculate_hand_value(hand):
+    total = 0
+    num_aces = 0
+    for card in hand:
+        if card == 'A':
+            num_aces += 1
+        elif card in ['J', 'Q', 'K']:
+            total += 10
+        else:
+            total += int(card)
+    for _ in range(num_aces):
+        if total + 11 <= 21:
+            total += 11
+        else:
+            total += 1
+    return total
+
+
+# Function to deal a card
+def deal_card():
+    return random.choice(['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'])
+
+
+# Function to determine if the dealer should hit
+def dealer_should_hit(dealer_hand, player_hand):
+    dealer_value = calculate_hand_value(dealer_hand)
+    player_value = calculate_hand_value(player_hand)
+    if dealer_value < 17:
+        return True
+    if dealer_value >= 17 and dealer_value < player_value:
+        return True
+    return False
+
+
+# Main function for the game
+def blackjack():
+    player_hand = [deal_card(), deal_card()]
+    dealer_hand = [deal_card(), deal_card()]
+
+    print("Your hand:", player_hand)
+    print("Dealer's hand:", [dealer_hand[0], 'X'])  # Show only one of the dealer's cards
+
+    # Player's turn
+    while True:
+        choice = input("Do you want to hit or stand? (h/s): ").lower()
+        if choice == 'h':
+            player_hand.append(deal_card())
+            print("Your hand:", player_hand)
+            player_value = calculate_hand_value(player_hand)
+            if player_value > 21:
+                print("You bust! Dealer wins.")
+                return
+        elif choice == 's':
+            break
+        else:
+            print("Invalid choice!")
+
+    # Dealer's turn
+    while dealer_should_hit(dealer_hand, player_hand):
+        dealer_hand.append(deal_card())
+        print("Dealer hits:", dealer_hand)
+        dealer_value = calculate_hand_value(dealer_hand)
+        if dealer_value > 21:
+            print("Dealer busts! You win.")
+            return
+
+    # Compare hands
+    player_value = calculate_hand_value(player_hand)
+    dealer_value = calculate_hand_value(dealer_hand)
+    if player_value > dealer_value:
+        print("You win!")
+    elif player_value < dealer_value:
+        print("Dealer wins!")
+    else:
+        print("It's a tie!")
+
+
+# Run the game
+
+def main():
+    print("\nwelcome to your blackjack !\n")
+    while True:
+        blackjack()
+        again = input("Would you like to quit? ")
+        again2 = again.lower()
+        if again2 == "yes":
+            print("\n100% of gamblers quit just before they win big")
+            break
+        else:
+            print("\n\nwelcome back\n")
+
+
+main()
