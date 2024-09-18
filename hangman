@@ -1,0 +1,55 @@
+
+
+def lettergssr():
+    char_list = []
+    guessed_char = set()
+    score = 0
+    guesses = 10
+    word2 = str(input("what would you like the word to be? "))
+    word = word2.replace(" ", "").lower()
+    for char in word:
+        char_list.append(char)
+    print(char_list)
+    for i in range(len(char_list)):
+        guess = str(input("what letter do you want to guess? "))
+        if guess in guessed_char:
+            print("\nyou already guessed that!\n")
+            continue
+        guessed_char.add(guess)
+        if guess in char_list:
+                try:
+                    score += 1
+                    print(f"\nyou were right! {guess} is in the word!")
+                    print(f"Your score is {score}\n")
+                    char_list.remove(guess)
+                    if len(char_list) == 0:
+                        print("\n\nyou Win! you guessed every letter!")
+                        print(f"the word was {word2}")
+                        break
+                except ValueError:
+                    guesses -= 1
+                    print(f"thats an invalid guess!")
+        else:
+            if guesses > 0:
+                guesses-= 1
+                print(f"\nyou were wrong!")
+                print(f"you have {guesses} guesses left, and your score is {score}\n")
+            else:
+                print(f'\nyou ran out of guesses! the word was {word2}')
+    return word
+
+
+def main():
+    while True:
+        print("welcome to hangman! \n")
+        lettergssr()
+        again = input("\nWould you like to quit? ")
+        again2 = again.lower()
+        if again == "yes":
+            print("\nsee you!")
+            break
+        else:
+            print("welcome back\n")
+
+
+main()
