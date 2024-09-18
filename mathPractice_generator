@@ -1,0 +1,87 @@
+import random
+
+
+def generator():
+    score = 0
+    mode = input("would you like to practice? +,-,/, x? ")
+
+
+    while True:
+
+        if mode == "+":
+            num1 = random.randint(1, 50)
+            num2 = random.randint(1,50)
+
+            print(f"\nAdd {num1} and {num2}.")
+            actual_answer = num1 + num2
+            answer = int(input("\nwhat is your answer? "))
+            if answer == actual_answer:
+                print("awesome sauce! youre right!")
+                score += 1
+            else:
+                print("youre fuckin stupid bud")
+
+
+        elif mode == "-":
+            num1 = random.randint(1, 50)
+            num2 = random.randint(1, 50)
+
+            biggernum = max(num1, num2)
+            smallernum = min(num1, num2)
+
+            print(f"\nSubtract {biggernum} - {smallernum}.")
+            actual_answer = num1 - num2
+            answer = int(input("\nwhat is your answer? "))
+            if answer == actual_answer:
+                print("awesome sauce! youre right!")
+                score += 1
+            else:
+                print("youre fuckin stupid bud")
+
+        elif mode == "x":
+            num1 = random.randint(1, 10)
+            num2 = random.randint(1, 10)
+
+            print(f"\nmultiply {num1} and {num2}.")
+            actual_answer = num1 * num2
+            answer = int(input("\nwhat is your answer? "))
+            if answer == actual_answer:
+                print("awesome sauce! youre right!")
+                score += 1
+            else:
+                print("youre fuckin stupid bud")
+
+
+        elif mode == "/":
+            num1 = random.randint(1, 100)
+            num22 = random.randint(4, 20)
+            num2= num22//2
+
+            print(f"\nDivide {num1} // {num2}.")
+            actual_answer = num1 // num2
+            answer = int(input("\nwhat is your answer? "))
+            if answer == actual_answer:
+                print("awesome sauce! youre right!")
+                score += 1
+            else:
+                print(f"youre fuckin stupid bud, the right answer was {actual_answer}")
+                print(score)
+
+        again = input("type yes if you want to keep practicing, or no to quit.  ")
+        if again != "yes":
+            break
+    return score
+
+def main():
+    print("\nwelcome to your practice generator!\n")
+    final_score = generator()
+    while True:
+        generator()
+        again2 = input("Would you like to quit? ")
+        if again2 == "yes":
+            print(f"\ngoodbye!!, you final score was {final_score}")
+            break
+
+
+
+main()
